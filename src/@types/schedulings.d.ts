@@ -6,3 +6,8 @@ export interface Scheduling {
 }
 
 export type NewSchedulingFormInput = Omit<Scheduling, "id">
+
+export interface Scheduled {
+  date: string
+  hour: number
+}

@@ -30,7 +30,7 @@ export function Home() {
 
   return (
     <div className="flex sm:flex-col lg:flex-row gap-3 justify-center mx-auto p-3 max-w-350 relative">
-      <Aside onAddScheduling={addScheduling} />
+      <Aside schedulings={schedulings} onAddScheduling={addScheduling} />
       <SchedulingList
         schedulings={schedulings}
         onDeleteScheduling={deleteScheduling}

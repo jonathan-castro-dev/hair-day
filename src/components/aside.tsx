@@ -5,21 +5,20 @@ import { Container } from "./container";
 import { DateInput } from "./date-input";
 import { TextInput } from "./text-input";
 import { TimeSelect } from "./time-select";
-import type { NewSchedulingFormInput } from "../@types/schedulings";
+import type { NewSchedulingFormInput, Scheduling } from "../@types/schedulings";
 import CalendarIcon from "../assets/icons/calendar.svg?react"
 import CaretDownIcon from "../assets/icons/caret-down.svg?react"
 import UserIcon from "../assets/icons/user.svg?react"
 
 interface AsideProps {
+  schedulings: Scheduling[]
   onAddScheduling: (data: NewSchedulingFormInput) => void
 }
 
-export function Aside({ onAddScheduling }: AsideProps) {
+export function Aside({ onAddScheduling, schedulings }: AsideProps) {
   const [clientName, setClientName] = useState('')
   const [schedulingDate, setSchedulingDate] = useState('')
   const [schedulingHour, setSchedulingHour] = useState(0)
-
-  const [scheduleds, setScheduleds] = useState<{ date: string, hour: number }[]>([])
 
   function handleChangeHour(e: ChangeEvent<HTMLInputElement>) {
     setSchedulingHour(Number(e.target.value))
@@ -36,19 +35,14 @@ export function Aside({ onAddScheduling }: AsideProps) {
 
     onAddScheduling(data)
 
-    setScheduleds(prevState => [
-      ...prevState,
-      { date: schedulingDate, hour: schedulingHour }
-    ])
-
     setClientName('')
     setSchedulingDate('')
     setSchedulingHour(0)
   }
 
   function disableFormTime(hour: number) {
-    return scheduleds.some(scheduled => {
-      return scheduled.date === schedulingDate && scheduled.hour === hour
+    return schedulings.some(scheduling => {
+      return scheduling.schedulingDate === schedulingDate && scheduling.schedulingHour === hour
     }) || !schedulingDate
   }
 
